@@ -1,0 +1,110 @@
+<html>
+<head><title>+1 coins Options</title></head>
+<script type="text/javascript">
+
+function save_options() {
+  localStorage["coin_icon"] = getCheckedValue(document.getElementsByName('coin_select'));
+  localStorage["auto_add"] = document.getElementById('auto_add').checked;
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  var favorite = localStorage["coin_icon"];
+  var auto_add = localStorage["auto_add"];
+  if(auto_add=="true") {
+    document.getElementById('auto_add').checked=true;
+  }
+  if (!favorite) {
+  }else{
+    document.getElementById(favorite).checked=true;
+  }
+  
+}
+
+function getCheckedValue(radioObj) {
+    if(!radioObj)
+            return "";
+    var radioLength = radioObj.length;
+    if(radioLength == undefined)
+            if(radioObj.checked)
+                    return radioObj.value;
+            else
+                    return "";
+    for(var i = 0; i < radioLength; i++) {
+            if(radioObj[i].checked) {
+                    return radioObj[i].value;
+            }
+    }
+    return "";
+}
+</script>
+<style type="text/css">
+div {
+    float: left;
+}
+.row {
+    width: 100%;
+}
+.coin_icon {
+    width:16px;
+    height:16px;
+    background-image: url(sprite.png);
+}
+.coin {
+    background-position: 0 -16px;
+}
+.android {
+    background-position: 0 0;
+}
+.star {
+    background-position: 0 -64px;
+}
+.unicorn {
+    background-position: 0 -32px;
+}
+.gplus {
+    background-position: 0 -48px;
+}
+label {
+    padding: 5px;
+    float: left;
+}
+</style>
+<body onload="restore_options()">
+
+<div class="row">Select an Icon:</div>
+<div>
+    <div class="row">
+        <div><label for="coin"><div class="coin_icon coin"></div></label><input type="radio" name="coin_select" id="coin" value="coin" /></div>
+    </div>
+    <div class="row">
+        <div><label for="star"><div class="coin_icon star"></div></label><input type="radio" name="coin_select" id="star" value="star"/></div>
+    </div>
+    <div class="row">
+        <div><label for="unicorn"><div class="coin_icon unicorn"></div></label><input type="radio" name="coin_select" id="unicorn" value="unicorn" /></div>
+    </div>
+    <div class="row">
+        <div><label for="android"><div class="coin_icon android"></div></label><input type="radio" name="coin_select" id="android" value="android" /></div>
+    </div>
+    <div class="row">
+        <div><label for="gplus"><div class="coin_icon gplus"></div></label><input type="radio" name="coin_select" id="gplus" value="gplus" checked="checked"/></div>
+    </div>
+    <div class="row">
+        <div><label for="auto_add">Trail</label><input style="margin-top:9px" type="checkbox" name="auto_add" id="auto_add"/></div>
+    </div>
+</div>
+<div class="row">
+  <button onclick="save_options()">Save</button>
+</div>
+<div class="row">
+  <div id="status" style="float:left"></div>
+</div>
+</body>
+</html>

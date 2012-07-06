@@ -1,0 +1,12 @@
+<script type="text/javascript">
+    chrome.extension.onRequest.addListener(
+        function(request, sender, sendResponse) {
+         
+          if (request.getCoin == "selected")
+            sendResponse({coin_selected: localStorage.coin_icon});
+          if (request.autoAdd == "bool")
+            sendResponse({auto_add: localStorage.auto_add});
+          else
+            sendResponse({}); // snub them.
+    });
+</script>
